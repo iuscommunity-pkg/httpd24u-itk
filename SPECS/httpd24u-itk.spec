@@ -11,7 +11,7 @@ Group:          System Environment/Daemons
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 Source0:        http://mpm-itk.sesse.net/mpm-itk-%{ver}.tar.gz
-Source1:        README.Fedora
+Source1:        README.IUS
 
 BuildRequires:  httpd-devel >= 2.4.7
 # There no required strict equal httpd version, just not older, because from it
@@ -55,7 +55,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc README CHANGES README.Fedora
+%doc README CHANGES README.IUS
 %{_httpd_moddir}/mod_mpm_itk.so
 %config(noreplace) %{_httpd_modconfdir}/00-mpm-itk.conf
 
