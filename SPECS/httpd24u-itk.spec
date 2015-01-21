@@ -1,19 +1,25 @@
-%global ver 2.4.7-01
+%global ver 2.4.7-02
+%global real_name httpd-itk
+%global ius_name httpd24u-itk
 
 Summary:        MPM Itk for Apache HTTP Server
-Name:           httpd-itk
+Name:           %{ius_name}
 Version:        %( echo %ver | tr '-' '.' )
-Release:        4%{?dist}
+Release:        1.ius%{?dist}
 URL:            http://mpm-itk.sesse.net/
 License:        ASL 2.0
 Group:          System Environment/Daemons
 Source0:        http://mpm-itk.sesse.net/mpm-itk-%{ver}.tar.gz
 Source1:        README.IUS
 
-BuildRequires:  httpd-devel >= 2.4.7
-# There no required strict equal httpd version, just not older, because from it
-# used only environment, but package provide fully independent binary file.
-Requires:       httpd >= 2.4.7
+BuildRequires:  httpd24u-devel
+Requires:       httpd24u
+
+# IUS-isms
+Provides: %{real_name} = %{version}-%{release}
+Provides: %{real_name}%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name} < %{version}
+
 
 %description
 The Apache HTTP Server is a powerful, efficient, and extensible web server.
@@ -26,12 +32,15 @@ longer have to be readable for all the other vhosts.
 In summary it is Apache module (opposite CGI solutions like suexec), fast and
 allow safely use non-thread-aware code software (like many PHP extensions f.e.)
 
+
 %prep
 %setup -q -n mpm-itk-%{ver}
+
 
 %build
 %configure
 make %{?_smp_mflags}
+
 
 %install
 install -m 644 %{SOURCE1} .
@@ -47,12 +56,16 @@ EOF
 
 
 %files
-%defattr(-,root,root,-)
 %doc README CHANGES README.IUS
 %{_httpd_moddir}/mod_mpm_itk.so
 %config(noreplace) %{_httpd_modconfdir}/00-mpm-itk.conf
 
+
 %changelog
+* Wed Jan 21 2015 Carl George <carl.george@rackspace.com> - 2.4.7.02-1.ius
+- Port from Fedora to IUS
+- Latest upstream
+
 * Mon Sep 8 2014 Pavel Alexeev <Pahan@Hubbitus.info> - 2.4.7.01-4
 - Fix service name in README.Fedora - bz#1133247.
 
