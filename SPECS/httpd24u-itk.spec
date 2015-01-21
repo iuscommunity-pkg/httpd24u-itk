@@ -7,9 +7,6 @@ Release:        4%{?dist}
 URL:            http://mpm-itk.sesse.net/
 License:        ASL 2.0
 Group:          System Environment/Daemons
-# It still needed as it targedted for EL5 too
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
-
 Source0:        http://mpm-itk.sesse.net/mpm-itk-%{ver}.tar.gz
 Source1:        README.IUS
 
@@ -37,8 +34,6 @@ allow safely use non-thread-aware code software (like many PHP extensions f.e.)
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
-
 install -m 644 %{SOURCE1} .
 install -D .libs/mpm_itk.so %{buildroot}/%{_httpd_moddir}/mod_mpm_itk.so
 install -d %{buildroot}/%{_httpd_modconfdir}/
@@ -50,8 +45,6 @@ cat > %{buildroot}/%{_httpd_modconfdir}/00-mpm-itk.conf << EOF
 #LoadModule mpm_itk_module modules/mod_mpm_itk.so
 EOF
 
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
