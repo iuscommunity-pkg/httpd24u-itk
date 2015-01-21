@@ -10,11 +10,8 @@ URL:            http://mpm-itk.sesse.net/
 License:        ASL 2.0
 Group:          System Environment/Daemons
 Source0:        http://mpm-itk.sesse.net/mpm-itk-%{ver}.tar.gz
-Source1:        README.IUS
-
 BuildRequires:  httpd24u-devel
 Requires:       httpd24u
-
 # IUS-isms
 Provides: %{real_name} = %{version}-%{release}
 Provides: %{real_name}%{?_isa} = %{version}-%{release}
@@ -43,7 +40,6 @@ make %{?_smp_mflags}
 
 
 %install
-install -m 644 %{SOURCE1} .
 install -D .libs/mpm_itk.so %{buildroot}/%{_httpd_moddir}/mod_mpm_itk.so
 install -d %{buildroot}/%{_httpd_modconfdir}/
 
@@ -51,12 +47,19 @@ cat > %{buildroot}/%{_httpd_modconfdir}/00-mpm-itk.conf << EOF
 # ITK MPM (Multi-Processing Module). Mpm-itk allows you to run each of your
 # vhost under a separate uid and gid - in short, the scripts and configuration
 # files for one vhost no longer have to be readable for all the other vhosts.
+#
+# To enable mpm-itk:
+#
+# 1) Choose non-threaded MPM like prefork in: /etc/httpd/conf.modules.d/00-mpm.conf
+# 2) Uncomment the LoadModule line below.
+# 3) Restart httpd.
+
 #LoadModule mpm_itk_module modules/mod_mpm_itk.so
 EOF
 
 
 %files
-%doc README CHANGES README.IUS
+%doc README CHANGES
 %{_httpd_moddir}/mod_mpm_itk.so
 %config(noreplace) %{_httpd_modconfdir}/00-mpm-itk.conf
 
