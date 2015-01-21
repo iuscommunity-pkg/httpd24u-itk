@@ -1,22 +1,22 @@
 %global ver 2.4.7-01
 
-Summary:		MPM Itk for Apache HTTP Server
-Name:		httpd-itk
-Version:		%( echo %ver | tr '-' '.' )
-Release:		4%{?dist}
-URL:			http://mpm-itk.sesse.net/
-License:		ASL 2.0
-Group:		System Environment/Daemons
+Summary:        MPM Itk for Apache HTTP Server
+Name:           httpd-itk
+Version:        %( echo %ver | tr '-' '.' )
+Release:        4%{?dist}
+URL:            http://mpm-itk.sesse.net/
+License:        ASL 2.0
+Group:          System Environment/Daemons
 # It still needed as it targedted for EL5 too
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
-Source0:		http://mpm-itk.sesse.net/mpm-itk-%{ver}.tar.gz
-Source1:		README.Fedora
+Source0:        http://mpm-itk.sesse.net/mpm-itk-%{ver}.tar.gz
+Source1:        README.Fedora
 
-BuildRequires:	httpd-devel >= 2.4.7
+BuildRequires:  httpd-devel >= 2.4.7
 # There no required strict equal httpd version, just not older, because from it
 # used only environment, but package provide fully independent binary file.
-Requires:		httpd >= 2.4.7
+Requires:       httpd >= 2.4.7
 
 %description
 The Apache HTTP Server is a powerful, efficient, and extensible web server.
@@ -73,11 +73,11 @@ rm -rf %{buildroot}
 - Owesome! Httpd 2.4.7 pushed. It shoud not require any hack anymore.
 - Major update to 2.4.7-01.
 - Apache from 2.4 version have modularity structure, so many changes:
-	- Mpm may be build without apache source tree!
-	- Exclude apache sources, turn mpm-itk tarball into regular source0.
-	- So drop all black magic!
-	- Instal it as module, retire separate systemd service files and related stuff.
-	- Rewrite README.Fedora.
+        - Mpm may be build without apache source tree!
+        - Exclude apache sources, turn mpm-itk tarball into regular source0.
+        - So drop all black magic!
+        - Instal it as module, retire separate systemd service files and related stuff.
+        - Rewrite README.Fedora.
 
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.22-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
@@ -93,7 +93,7 @@ rm -rf %{buildroot}
 
 * Thu Mar 8 2012 Pavel Alexeev <Pahan@Hubbitus.info> - 2.2.22-5
 - Up apr and upr-utils required BR to 1.3 (http://centos.org/modules/newbb/print.php?form=1&topic_id=35915&forum=37&order=ASC&start=0).
-	Do not build for El5 untill this requirement will be met.
+        Do not build for El5 untill this requirement will be met.
 
 * Wed Mar 7 2012 Pavel Alexeev <Pahan@Hubbitus.info> - 2.2.22-4
 - Port pcre patch from httpd.
@@ -120,8 +120,8 @@ rm -rf %{buildroot}
 
 * Wed Mar 23 2011 Pavel Alexeev <Pahan@Hubbitus.info> - 2.2.17-4
 - Follow the main httpd package:
-	o Drop merged upstream Patch21: httpd-2.2.11-xfsz.patch
-	o Update httpd-2.2.11-corelimit.patch and httpd-2.2.11-selinux.patch.
+        o Drop merged upstream Patch21: httpd-2.2.11-xfsz.patch
+        o Update httpd-2.2.11-corelimit.patch and httpd-2.2.11-selinux.patch.
 
 * Sat Oct 30 2010 Pavel Alexeev <Pahan@Hubbitus.info> - 2.2.17-3
 - Follow upstream new version 2.2.17 - https://admin.fedoraproject.org/updates/httpd-2.2.17-1.fc13.1
@@ -131,10 +131,10 @@ rm -rf %{buildroot}
 
 * Sun Apr 04 2010 Pavel Alexeev <Pahan@Hubbitus.info> - 2.2.15-1
 - Initial spec. Based on httpd.spec in Fedora rawhide. Joe Orton has asked
-	initially add MPM-ITK support into main httpd package (BUG#479575) -
-	he dismiss enhancment request. After that he was asked (with proposed
-	patch) to provide httpd-source package he also dismiss it (BUG#597772).
-	Pride is a mortal sin. But I can not get it to do something.
-	So, instead just base on always current version of Fedora httpd, I have to
-	do it again from begining and doubling... I'll try it do as best as
-	possible in this situation.
+        initially add MPM-ITK support into main httpd package (BUG#479575) -
+        he dismiss enhancment request. After that he was asked (with proposed
+        patch) to provide httpd-source package he also dismiss it (BUG#597772).
+        Pride is a mortal sin. But I can not get it to do something.
+        So, instead just base on always current version of Fedora httpd, I have to
+        do it again from begining and doubling... I'll try it do as best as
+        possible in this situation.
