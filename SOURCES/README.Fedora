@@ -1,0 +1,22 @@
+It is only additional MPM for Apache web server.
+
+To enable it:
+
+=== For versions >= 2.4
+1) Choose non-threaded MPM like prefork in: /etc/httpd/conf.modules.d/00-mpm.conf
+2) Uncomment ITK in shipped: /etc/httpd/conf.modules.d/00-mpm-itk.conf
+3) Then (re)start service: systemctl start httpd
+
+=== For versions < 2.4
+1) If you are use moderm systemd:
+systemctl stop httpd.service
+systemctl disable httpd.service
+systemctl enable httpd-itk.service
+systemctl start httpd-itk.service
+
+2) If you are still using old sysvinit style:
+Set HTTPD=/usr/sbin/httpd.itk in /etc/sysconfig/httpd and restart daemon:
+service httpd restart
+
+
+For more information about Apache refer to man and manuals in main httpd package
